@@ -3,22 +3,21 @@ import java.util.*;
 public class PalindromeCheckerApp {
     public static void main(String[] args)
     {
-        String input = "refer";
-        Deque<Character> deque = new ArrayDeque<>();
-        for (char c : input.toCharArray())
+        String input = "madam";
+        boolean result = check(input, 0, input.length() - 1);
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome? : " + result);
+    }
+    private static boolean check(String s, int start, int end)
+    {
+        if (start >= end)
         {
-            deque.add(c);
+            return true;
         }
-        boolean isPalindrome = true;
-        while (deque.size() > 1)
+        if (s.charAt(start) != s.charAt(end))
         {
-            if (deque.removeFirst() != deque.removeLast())
-            {
-                isPalindrome = false;
-                break;
-            }
+            return false;
         }
-        System.out.println("Input: " + input);
-        System.out.println("Is Palindrome? " + isPalindrome);
+        return check(s, start + 1, end - 1);
     }
 }
