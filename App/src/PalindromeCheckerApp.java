@@ -4,30 +4,66 @@ public class PalindromeCheckerApp {
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Input: ");
-        String s = sc.nextLine();
-        s = s.replaceAll("\\s+", "").toLowerCase();
-        PalindromeChecker checker = new PalindromeChecker();
-        boolean result = checker.checkPalindrome(s);
+        System.out.print("Input : ");
+        String input = sc.nextLine();
+        input = input.replaceAll("\\s+", "").toLowerCase();
+        System.out.println("\nChoose Strategy");
+        System.out.println("1. Stack Strategy");
+        System.out.println("2. Deque Strategy");
+        System.out.print("Enter choice: ");
+        int choice = sc.nextInt();
+        PalindromeStrategy strategy;
+        if (choice == 1)
+        {
+            strategy = new StackStrategy();
+        }
+        else
+        {
+            strategy = new DequeStrategy();
+        }
+        boolean result = strategy.check(input);
         System.out.println("Is Palindrome? : " + result);
     }
 }
-class PalindromeChecker
+interface PalindromeStrategy
 {
-    public boolean checkPalindrome(String s)
+    boolean check(String input);
+}
+class StackStrategy implements PalindromeStrategy
+{
+    public boolean check(String input)
     {
-        int start = 0;
-        int end = s.length() - 1;
-        while (start < end)
+        Stack<Character> stack = new Stack<>();
+        for(char c : input.toCharArray())
         {
-            if (s.charAt(start) != s.charAt(end))
+            stack.push(c);
+        }
+        for(char c : input.toCharArray())
+        {
+            if(c != stack.pop())
             {
                 return false;
             }
-            start++;
-            end--;
         }
         return true;
     }
 }
-
+class DequeStrategy implements PalindromeStrategy
+{
+    public boolean check(String input)
+    {
+        Deque<Character> deque = new ArrayDeque<>();
+        for(char c : input.toCharArray())
+        {
+            deque.addLast(c);
+        }
+        while(deque.size() > 1)
+        {
+            if(deque.removeFirst() != deque.removeLast())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}
