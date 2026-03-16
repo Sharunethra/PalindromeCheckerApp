@@ -40,7 +40,7 @@ public class PalindromeCheckerApp {
         System.out.println("Execution Time : " + time1 + " ns");
         System.out.println("\nUsing Two Pointer Method:");
         System.out.println("Is Palindrome? : " + result2);
-        System.out.println("Execution Time : " + time2 + " ns");
+        System.out.println(" Execution Time : " + time2 + " ns");
         sc.close();
     }
 }
